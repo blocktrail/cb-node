@@ -20,13 +20,13 @@ Addresses.prototype.transactions = function(addresses, blockHeight, callback) {
   utils.jsendBatchedRequest(this.url + '/transactions', {
     addresses: [].concat(addresses),
     blockHeight: blockHeight,
-  }, Array.isArray(addresses), callback)
+  }, true, callback)
 }
 
 Addresses.prototype.unspents = function(addresses, callback) {
   utils.jsendBatchedRequest(this.url + '/unspents', {
     addresses: [].concat(addresses)
-  }, Array.isArray(addresses), callback)
+  }, true, callback)
 }
 
 module.exports = Addresses
