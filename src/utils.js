@@ -1,19 +1,20 @@
 var jsend = require('jsend')
-var request = require('superagent')
+var httpify = require('httpify')
 
 function jsendBatchedRequest(url, postParams, plural, callback) {
-  request
-  .post(url)
-  .send(postParams)
-  .set('Accept', 'application/json')
-  .end(function(err, res) {
+  httpify({
+    url: url,
+    method: 'POST',
+    json: true,
+    body: postParams
+  }, function (err, res, body) {
     if (err) return callback(err)
 
-    if (!jsend.isValid(res.body)) {
-      return callback(new Error('Invalid JSend Response ' + JSON.stringify(res.body)))
+    if (!jsend.isValid(body)) {
+      return callback(new Error('Invalid JSend Response ' + JSON.stringify(body)))
     }
 
-    callback(undefined, plural ? res.body.data : res.body.data[0])
+    return callback(undefined, plural ? body.data : body.data[0])
   })
 }
 

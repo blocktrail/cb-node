@@ -25,7 +25,7 @@
     "mocha": "^2.1.0"
   },
   "dependencies": {
-    "jsend": "^0.1.2",
-    "superagent": "^0.21.0"
+    "httpify": "^1.0.0",
+    "jsend": "^0.1.2"
   }
 }
