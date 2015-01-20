@@ -10,6 +10,10 @@ Transactions.prototype.get = function(txIds, callback) {
   }, Array.isArray(txIds), callback)
 }
 
+Transactions.prototype.latest = function(callback) {
+  utils.jsendBatchedRequest(this.url + '/latest', {}, true, callback)
+}
+
 Transactions.prototype.propagate = function(txHexs, callback) {
   utils.jsendBatchedRequest(this.url + '/propagate', {
     txHexs: txHexs
