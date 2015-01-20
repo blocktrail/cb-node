@@ -12,7 +12,7 @@ function jsendBatchedRequest(url, postParams, plural, callback) {
 
     var body = res.body
     if (!jsend.isValid(body)) return callback(new Error('Invalid JSend response'))
-    if (body.status === 'fail') return callback(new Error(JSON.stringify(body.data)))
+    if (body.status === 'fail' || body.status === 'error') return callback(new Error(JSON.stringify(body.data)))
 
     return callback(undefined, plural ? body.data : body.data[0])
   })
