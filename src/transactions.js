@@ -6,7 +6,7 @@ function Transactions(url) {
 
 Transactions.prototype.get = function(txIds, callback) {
   utils.jsendBatchedRequest(this.url + '/get', {
-    txIds: txIds
+    txIds: [].concat(txIds)
   }, Array.isArray(txIds), callback)
 }
 
@@ -16,13 +16,13 @@ Transactions.prototype.latest = function(callback) {
 
 Transactions.prototype.propagate = function(txHexs, callback) {
   utils.jsendBatchedRequest(this.url + '/propagate', {
-    txHexs: txHexs
+    txHexs: [].concat(txHexs)
   }, Array.isArray(txHexs), callback)
 }
 
 Transactions.prototype.summary = function(txIds, callback) {
   utils.jsendBatchedRequest(this.url + '/summary', {
-    txIds: txIds
+    txIds: [].concat(txIds)
   }, Array.isArray(txIds), callback)
 }
 

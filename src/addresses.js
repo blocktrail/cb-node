@@ -6,7 +6,7 @@ function Addresses(url) {
 
 Addresses.prototype.summary = function(addresses, callback) {
   utils.jsendBatchedRequest(this.url + '/summary', {
-    addresses: addresses
+    addresses: [].concat(addresses)
   }, Array.isArray(addresses), callback)
 }
 
@@ -18,14 +18,14 @@ Addresses.prototype.transactions = function(addresses, blockHeight, callback) {
   }
 
   utils.jsendBatchedRequest(this.url + '/transactions', {
-    addresses: addresses,
+    addresses: [].concat(addresses),
     blockHeight: blockHeight,
   }, Array.isArray(addresses), callback)
 }
 
 Addresses.prototype.unspents = function(addresses, callback) {
   utils.jsendBatchedRequest(this.url + '/unspents', {
-    addresses: addresses
+    addresses: [].concat(addresses)
   }, Array.isArray(addresses), callback)
 }
 

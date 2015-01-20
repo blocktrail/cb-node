@@ -6,7 +6,7 @@ function Blocks(url) {
 
 Blocks.prototype.get = function(blockIds, callback) {
   utils.jsendBatchedRequest(this.url + '/get', {
-    blockIds: blockIds
+    blockIds: [].concat(blockIds)
   }, Array.isArray(blockIds), callback)
 }
 
@@ -16,13 +16,13 @@ Blocks.prototype.latest = function(callback) {
 
 Blocks.prototype.propagate = function(blockIds, callback) {
   utils.jsendBatchedRequest(this.url + '/propagate', {
-    blockIds: blockIds
+    blockIds: [].concat(blockIds)
   }, Array.isArray(blockIds), callback)
 }
 
 Blocks.prototype.summary = function(blockIds, callback) {
   utils.jsendBatchedRequest(this.url + '/summary', {
-    blockIds: blockIds
+    blockIds: [].concat(blockIds)
   }, Array.isArray(blockIds), callback)
 }
 
