@@ -1,7 +1,7 @@
 var assert = require('assert')
 var Blockchain = require('../src/index')
 
-var url = 'localhost:8080'
+var url = 'http://localhost:8080'
 
 describe('Blockchain', function() {
   describe('Constructor', function() {
