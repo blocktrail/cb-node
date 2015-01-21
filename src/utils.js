@@ -9,6 +9,7 @@ function jsendBatchedRequest(url, postParams, plural, callback) {
     body: postParams
   }, function (err, res) {
     if (err) return callback(err)
+    if (res.statusCode !== 200) return callback(new Error('Error ' + res.statusCode))
 
     var body = res.body
     if (!jsend.isValid(body)) return callback(new Error('Invalid JSend response'))
