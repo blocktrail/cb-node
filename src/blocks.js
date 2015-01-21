@@ -11,7 +11,7 @@ Blocks.prototype.get = function(blockIds, callback) {
 }
 
 Blocks.prototype.latest = function(callback) {
-  utils.jsendBatchedRequest(this.url + '/latest', {}, false, callback)
+  utils.jsendBatchedRequest(this.url + '/latest', {}, true, callback)
 }
 
 Blocks.prototype.propagate = function(blockIds, callback) {
