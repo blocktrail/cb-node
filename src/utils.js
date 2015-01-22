@@ -1,12 +1,13 @@
 var httpify = require('httpify')
 var jsend = require('jsend')
 
-function jsendBatchedRequest(url, body, plural, callback) {
+function jsendBatchedRequest(url, body, plural, timeout, callback) {
   httpify({
     method: 'POST',
     url: url,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
+    timeout: timeout
   }, function (err, res) {
     if (err) return callback(err)
     if (res.statusCode !== 200) return callback(new Error('Error ' + res.statusCode))

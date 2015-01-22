@@ -3,9 +3,9 @@ var Blocks = require('./blocks')
 var Transactions = require('./transactions')
 
 function Node(baseURL, network) {
-  this.addresses = new Addresses(baseURL + '/addresses')
-  this.blocks = new Blocks(baseURL + '/blocks')
-  this.transactions = new Transactions(baseURL + '/transactions')
+  this.addresses = new Addresses(baseURL + '/addresses', 10000)
+  this.blocks = new Blocks(baseURL + '/blocks', 10000)
+  this.transactions = new Transactions(baseURL + '/transactions', 10000)
 
   this.network = network || 'bitcoin'
 }
