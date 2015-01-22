@@ -18,12 +18,6 @@ describe('Blockchain', function() {
 
       assert.equal(blockchain.getNetwork(), 'testnet')
     })
-
-    it('throws on unknown network', function() {
-      assert.throws(function() {
-        new Blockchain(url, 'zoidberg')
-      }, /Unknown network: zoidberg/)
-    })
   })
 })
 
