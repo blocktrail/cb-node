@@ -4,9 +4,9 @@
   "description": "common blockchain wrapper for common-blockchain-node-server",
   "main": "./src/index.js",
   "scripts": {
-    "coverage": "istanbul cover _mocha --timeout 10000 -- test/*.js",
+    "coverage": "istanbul cover _mocha -- test/*.js --timeout 10000",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
-    "test": "istanbul test mocha --timeout 10000 -- --reporter list test/*.js"
+    "test": "istanbul test mocha -- --reporter list test/*.js --timeout 10000"
   },
   "repository": {
     "type": "git",
