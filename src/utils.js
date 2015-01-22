@@ -3,9 +3,9 @@ var jsend = require('jsend')
 
 function jsendBatchedRequest(url, postParams, plural, callback) {
   httpify({
-    url: url,
     method: 'POST',
-    json: true,
+    url: url,
+    headers: { "Content-Type": "application/json" },
     body: postParams
   }, function (err, res) {
     if (err) return callback(err)
