@@ -1,5 +1,5 @@
-var jsend = require('jsend')
 var httpify = require('httpify')
+var jsend = require('jsend')
 
 function jsendBatchedRequest(url, postParams, plural, callback) {
   httpify({
