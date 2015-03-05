@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/dcousens/cb-node",
   "devDependencies": {
-    "cb-tester": "^0.1.x",
+    "cb-tester": "^0.2.x",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.5",
     "mocha": "^2.1.0",
