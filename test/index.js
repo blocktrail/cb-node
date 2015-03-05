@@ -8,5 +8,5 @@ describe('cb-tests', function () {
     options.blockchain = new Blockchain(url)
   })
 
-	require('cb-tester')(options)
+  require('cb-tester')(options)
 })
