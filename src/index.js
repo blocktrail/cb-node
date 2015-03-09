@@ -1,14 +1,20 @@
 var httpify = require('httpify')
 var jsend = require('jsend')
 
-function req (url, body, plural, timeout, callback) {
-  httpify({
+function req (url, body, plural, xhrOptions, callback) {
+  var options = {
     method: 'POST',
     url: url,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-    timeout: timeout
-  }, function (err, res) {
+    body: JSON.stringify(body)
+  }
+
+  // extend the options object if necessary
+  for (var option in xhrOptions) {
+    options[option] = xhrOptions[option]
+  }
+
+  httpify(options, function (err, res) {
     if (err) return callback(err)
     if (res.statusCode !== 200) return callback(new Error('Error ' + res.statusCode))
 
@@ -27,7 +33,7 @@ function Node (base) {
 
   this.addresses = {
     summary: function (addresses, callback) {
-      req(base + '/addresses/summary', { addresses: [].concat(addresses) }, Array.isArray(addresses), self.timeout, callback)
+      req(base + '/addresses/summary', { addresses: [].concat(addresses) }, Array.isArray(addresses), self.xhrOptions, callback)
     },
 
     transactions: function (addresses, blockHeight, callback) {
@@ -37,50 +43,51 @@ function Node (base) {
         blockHeight = 0
       }
 
-      req(base + '/addresses/transactions', { addresses: [].concat(addresses), blockHeight: blockHeight, }, true, self.timeout, callback)
+      req(base + '/addresses/transactions', { addresses: [].concat(addresses), blockHeight: blockHeight, }, true, self.xhrOptions, callback)
     },
 
     unspents: function (addresses, callback) {
-      req(base + '/addresses/unspents', { addresses: [].concat(addresses) }, true, self.timeout, callback)
+      req(base + '/addresses/unspents', { addresses: [].concat(addresses) }, true, self.xhrOptions, callback)
     }
   }
 
   this.blocks = {
     get: function (blockIds, callback) {
-      req(base + '/blocks/get', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.timeout, callback)
+      req(base + '/blocks/get', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, callback)
     },
 
     latest: function (callback) {
-      req(base + '/blocks/latest', {}, true, self.timeout, callback)
+      req(base + '/blocks/latest', {}, true, self.xhrOptions, callback)
     },
 
     propagate: function (blockIds, callback) {
-      req(base + '/blocks/propagate', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.timeout, callback)
+      req(base + '/blocks/propagate', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, callback)
     },
 
     summary: function (blockIds, callback) {
-      req(base + '/blocks/summary', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.timeout, callback)
+      req(base + '/blocks/summary', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, callback)
     }
   }
 
-  this.timeout = 10000
   this.transactions = {
     get: function (txIds, callback) {
-      req(base + '/transactions/get', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.timeout, callback)
+      req(base + '/transactions/get', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.xhrOptions, callback)
     },
 
     latest: function (callback) {
-      req(base + '/transactions/latest', {}, true, self.timeout, callback)
+      req(base + '/transactions/latest', {}, true, self.xhrOptions, callback)
     },
 
     propagate: function (txHexs, callback) {
-      req(base + '/transactions/propagate', { txHexs: [].concat(txHexs) }, Array.isArray(txHexs), self.timeout, callback)
+      req(base + '/transactions/propagate', { txHexs: [].concat(txHexs) }, Array.isArray(txHexs), self.xhrOptions, callback)
     },
 
     summary: function (txIds, callback) {
-      req(base + '/transactions/summary', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.timeout, callback)
+      req(base + '/transactions/summary', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.xhrOptions, callback)
     }
   }
+
+  this.xhrOptions = {}
 }
 
 module.exports = Node

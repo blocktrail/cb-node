@@ -6,7 +6,9 @@ describe('cb-tests', function () {
 
   beforeEach(function () {
     options.blockchain = new Blockchain(url)
-    options.blockchain.timeout = 1000000
+    options.blockchain.xhrOptions = {
+      timeout: 1000000
+    }
   })
 
   require('cb-tester')(options)
