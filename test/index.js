@@ -1,5 +1,5 @@
 var Blockchain = require('../src/index')
-var url = 'https://common-blockchain-test.herokuapp.com'
+var url = 'https://common-blockchain-test.herokuapp.com/v1'
 
 describe('cb-tests', function () {
   var options = {}
