@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "httpify": "^1.0.0",
-    "jsend": "^0.1.2"
+    "jsend": "^0.1.2",
+    "querystring": "^0.2.0"
   }
 }
