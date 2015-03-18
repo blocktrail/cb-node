@@ -1,7 +1,26 @@
 var httpify = require('httpify')
 var jsend = require('jsend')
+var querystring = require('querystring')
 
-function req (url, body, plural, xhrOptions, callback) {
+/**
+ * helper to make sure the query string is sorted in lexical order
+ *
+ * @param {Object} argObj
+ * @returns {string}
+ */
+function qs(argObj) {
+  var result = {}
+  Object.keys(argObj).sort().forEach(function(key) {
+    result[key] = argObj[key]
+  })
+
+  return querystring.stringify(result)
+}
+
+function req (url, body, plural, xhrOptions, query, callback) {
+  if (query) {
+    url += "?" + qs(query);
+  }
   var options = {
     method: 'POST',
     url: url,
@@ -28,12 +47,12 @@ function req (url, body, plural, xhrOptions, callback) {
   })
 }
 
-function Node (base) {
+function Node (base, defaultParams) {
   var self = this
 
   this.addresses = {
     summary: function (addresses, callback) {
-      req(base + '/addresses/summary', { addresses: [].concat(addresses) }, Array.isArray(addresses), self.xhrOptions, callback)
+      req(base + '/addresses/summary', { addresses: [].concat(addresses) }, Array.isArray(addresses), self.xhrOptions, self.defaultParams, callback)
     },
 
     transactions: function (addresses, blockHeight, callback) {
@@ -43,51 +62,52 @@ function Node (base) {
         blockHeight = 0
       }
 
-      req(base + '/addresses/transactions', { addresses: [].concat(addresses), blockHeight: blockHeight, }, true, self.xhrOptions, callback)
+      req(base + '/addresses/transactions', { addresses: [].concat(addresses), blockHeight: blockHeight }, true, self.xhrOptions, self.defaultParams, callback)
     },
 
     unspents: function (addresses, callback) {
-      req(base + '/addresses/unspents', { addresses: [].concat(addresses) }, true, self.xhrOptions, callback)
+      req(base + '/addresses/unspents', { addresses: [].concat(addresses) }, true, self.xhrOptions, self.defaultParams, callback)
     }
   }
 
   this.blocks = {
     get: function (blockIds, callback) {
-      req(base + '/blocks/get', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, callback)
+      req(base + '/blocks/get', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, self.defaultParams, callback)
     },
 
     latest: function (callback) {
-      req(base + '/blocks/latest', {}, true, self.xhrOptions, callback)
+      req(base + '/blocks/latest', {}, true, self.xhrOptions, self.defaultParams, callback)
     },
 
     propagate: function (blockIds, callback) {
-      req(base + '/blocks/propagate', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, callback)
+      req(base + '/blocks/propagate', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, self.defaultParams, callback)
     },
 
     summary: function (blockIds, callback) {
-      req(base + '/blocks/summary', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, callback)
+      req(base + '/blocks/summary', { blockIds: [].concat(blockIds) }, Array.isArray(blockIds), self.xhrOptions, self.defaultParams, callback)
     }
   }
 
   this.transactions = {
     get: function (txIds, callback) {
-      req(base + '/transactions/get', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.xhrOptions, callback)
+      req(base + '/transactions/get', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.xhrOptions, self.defaultParams, callback)
     },
 
     latest: function (callback) {
-      req(base + '/transactions/latest', {}, true, self.xhrOptions, callback)
+      req(base + '/transactions/latest', {}, true, self.xhrOptions, self.defaultParams, callback)
     },
 
     propagate: function (txHexs, callback) {
-      req(base + '/transactions/propagate', { txHexs: [].concat(txHexs) }, Array.isArray(txHexs), self.xhrOptions, callback)
+      req(base + '/transactions/propagate', { txHexs: [].concat(txHexs) }, Array.isArray(txHexs), self.xhrOptions, self.defaultParams, callback)
     },
 
     summary: function (txIds, callback) {
-      req(base + '/transactions/summary', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.xhrOptions, callback)
+      req(base + '/transactions/summary', { txIds: [].concat(txIds) }, Array.isArray(txIds), self.xhrOptions, self.defaultParams, callback)
     }
   }
 
   this.xhrOptions = {}
+  this.defaultParams = defaultParams || {}
 }
 
 module.exports = Node
