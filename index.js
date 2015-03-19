@@ -40,7 +40,7 @@ function Node (base) {
       // optional blockHeight
       if ('function' === typeof blockHeight) {
         callback = blockHeight
-        blockHeight = 0
+        blockHeight = null
       }
 
       req(base + '/addresses/transactions', { addresses: [].concat(addresses), blockHeight: blockHeight, }, true, self.xhrOptions, callback)
