@@ -3,7 +3,7 @@ var jsend = require('jsend')
 var qs = require('querystring')
 
 function Node (base, queryParams) {
-  var queryString = queryParams ? ('?' + qs(queryParams)) : ''
+  var queryString = queryParams ? ('?' + qs.stringify(queryParams)) : ''
   var self = this
 
   function req (url, body, callback, deconstruct) {
