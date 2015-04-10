@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/dcousens/cb-node",
   "devDependencies": {
-    "cb-tester": "^0.2.x",
+    "cb-tester": "git://github.com/common-blockchain/cb-tester.git#8b4533d8eb8f46d468c0922d55294f6542e45b4e",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.5",
     "mocha": "^2.1.0",
