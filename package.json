@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcousens/cb-node.git"
+    "url": "https://github.com/common-blockchain/cb-node.git"
   },
   "author": "Daniel Cousens",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dcousens/cb-node/issues"
+    "url": "https://github.com/common-blockchain/cb-node/issues"
   },
-  "homepage": "https://github.com/dcousens/cb-node",
+  "homepage": "https://github.com/common-blockchain/cb-node",
   "devDependencies": {
     "cb-tester": "^0.2.x",
     "coveralls": "^2.11.2",
