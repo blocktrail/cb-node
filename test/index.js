@@ -1,3 +1,5 @@
+/* global describe beforeEach */
+
 var Blockchain = require('../')
 var url = 'https://common-blockchain-test.herokuapp.com/v1'
 
