@@ -40,7 +40,7 @@ function Node (base, queryParams) {
 
     transactions: function (addresses, blockHeight, callback) {
       // optional blockHeight
-      if ('function' === typeof blockHeight) {
+      if (typeof blockHeight === 'function') {
         callback = blockHeight
         blockHeight = 0
       }
